@@ -832,6 +832,7 @@ section.works-page {
 .works-holder {
   display: grid;
   gap: 15px;
+  align-items: center;
 }
 
 .works-holder .item img {
@@ -929,8 +930,6 @@ section.works-page {
     margin-bottom: 50px;
   }
 }
-
-
 
 /* Footer */
 
@@ -1199,4 +1198,10 @@ p {
   .cc-ul {
     margin-left: -7px !important;
   }
+}
+
+/* Make the video the same size as images */
+.item video {
+  max-width: 100%;
+  height: auto;
 }
