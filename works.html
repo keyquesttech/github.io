@@ -28,6 +28,12 @@
   </title>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1, user-scalable=no" name="viewport" />
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+    crossorigin="anonymous"></script>
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&amp;display=swap"
     rel="stylesheet" />
   <link href="assets/css/main.css" rel="stylesheet">
@@ -79,43 +85,44 @@
       </div>
       <div class="works-holder">
         <div class="item">
-          <img alt="1" src="images/works/1.png" />
+          <img alt="1" src="images/works/1.png" data-bs-toggle="modal" data-bs-target="#exampleModal" />
         </div>
         <div class="item">
-          <img alt="2" src="images/works/2.png" />
+          <img alt="2" src="images/works/2.png" data-bs-toggle="modal" data-bs-target="#exampleModal" />
         </div>
         <div class="item">
-          <img alt="3" src="images/works/3.png" />
+          <img alt="3" src="images/works/3.png" data-bs-toggle="modal" data-bs-target="#exampleModal" />
         </div>
         <div class="item">
-          <img alt="4" src="images/works/4.png" />
+          <img alt="4" src="images/works/4.png" data-bs-toggle="modal" data-bs-target="#exampleModa2" />
         </div>
         <div class="item">
-          <img alt="5" src="images/works/5.png" />
+          <img alt="5" src="images/works/5.png" data-bs-toggle="modal" data-bs-target="#exampleModa2" />
         </div>
         <div class="item">
-          <img alt="6" src="images/works/6.png" />
+          <img alt="6" src="images/works/6.png" data-bs-toggle="modal" data-bs-target="#exampleModa2" />
         </div>
         <div class="item">
-          <img alt="7" src="images/works/7.png" />
+          <img alt="7" src="images/works/7.png" data-bs-toggle="modal" data-bs-target="#exampleModa3" />
         </div>
         <div class="item">
-          <img alt="8" src="images/works/8.png" />
+          <img alt="8" src="images/works/8.png" data-bs-toggle="modal" data-bs-target="#exampleModa3" />
         </div>
         <div class="item">
-          <img alt="9" src="images/works/9.png" />
+          <img alt="9" src="images/works/9.png" data-bs-toggle="modal" data-bs-target="#exampleModa3" />
         </div>
         <div class="item">
-          <img alt="10" src="images/works/10.png" />
+          <img alt="10" src="images/works/10.png" data-bs-toggle="modal" data-bs-target="#exampleModa4" />
         </div>
         <div class="item">
-          <img alt="11" src="images/works/11.png" />
+          <img alt="11" src="images/works/11.png" data-bs-toggle="modal" data-bs-target="#exampleModa4" />
         </div>
         <div class="item">
-          <img alt="12" src="images/works/12.png" />
+          <img alt="12" src="images/works/12.png" data-bs-toggle="modal" data-bs-target="#exampleModa4" />
         </div>
       </div>
     </section>
+
     <!-- Footer -->
     <footer id="footer">
       <p class="copyright">
@@ -123,10 +130,104 @@
       </p>
     </footer>
   </div>
+
+  <!-- Popup One  -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <h1>Heading Text | Pop
+            Up One
+          </h1>
+          <p class="mb-0" style="font-weight: 500; color: #555; letter-spacing: 0px;">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis, voluptatibus!
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!-- Popup One  -->
+
+  <!-- Popup two  -->
+  <div class="modal fade" id="exampleModa2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <h1>Heading Text | Pop
+            Up Two
+          </h1>
+          <p class="mb-0" style="font-weight: 500; color: #555; letter-spacing: 0px;">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis, voluptatibus!
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!-- Popup two  -->
+
+  <!-- Popup three  -->
+  <div class="modal fade" id="exampleModa3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <h1>Heading Text | Pop
+            Up Three
+          </h1>
+          <p class="mb-0" style="font-weight: 500; color: #555; letter-spacing: 0px;">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis, voluptatibus!
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!-- Popup three -->
+
+  <!-- Popup Four  -->
+  <div class="modal fade" id="exampleModa4" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <h1>Heading Text | Pop
+            Up Four
+          </h1>
+          <p class="mb-0" style="font-weight: 500; color: #555; letter-spacing: 0px;">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis, voluptatibus!
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!-- Popup Four -->
+
+
   <script src="assets/js/jquery.min.js">
   </script>
   <script src="assets/js/main.js">
   </script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"
+    integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa"
+    crossorigin="anonymous"></script>
+
+
 </body>
 
 </html>
