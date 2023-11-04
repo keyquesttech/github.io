@@ -12,25 +12,6 @@
 		function gtag() { dataLayer.push(arguments); }
 		gtag('js', new Date());
 		gtag('config', 'G-FF5C0NRL0H');
-
-
-		$(document).ready(function () {
-			// Fetch the visitor's IP and location data
-			// Note: The actual URL for the IP API service should be used here
-			$.getJSON('https://ipapi.co/json/', function (data) {
-				// Assuming consent has been given
-				// Send location data to Google Analytics as an event
-				gtag('event', 'location_data', {
-					'event_category': 'User Location',
-					'event_label': 'Location Data',
-					'country': data.country_name,
-					'region': data.region,
-					'city': data.city
-					// Do not send latitude and longitude as they can be too specific
-					// Do not send the IP address as it's against Google Analytics policies
-				});
-			});
-		});
 	</script>
 	<!-- Google Tag Manager -->
 	<script>
