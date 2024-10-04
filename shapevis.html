@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Box with Adjustable Vertices</title>
+    <title>3D Box with Auto-Aligned Sides</title>
     <style>
         body {
             margin: 0;
@@ -17,9 +17,9 @@
         }
 
         .shape-container {
-            width: 150px;
-            height: 150px;
-            perspective: 600px;
+            width: 300px;
+            height: 300px;
+            perspective: 1000px;
             margin-bottom: 20px;
         }
 
@@ -29,15 +29,16 @@
             position: relative;
             transform-style: preserve-3d;
             transform: rotateX(45deg) rotateY(45deg);
-            animation: rotate 6s infinite linear;
+            animation: rotate 10s infinite linear;
         }
 
         .side {
             position: absolute;
             width: 100px;
             height: 100px;
-            background: #ff4500;
-            border: 2px solid #ffffff;
+            background: #ff00f7;
+            border: 2px solid #eeff00;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
         }
 
         @keyframes rotate {
@@ -46,7 +47,7 @@
             }
 
             to {
-                transform: rotateX(405deg) rotateY(405deg);
+                transform: rotateX(45deg) rotateY(405deg);
             }
         }
 
@@ -72,19 +73,20 @@
 
         function createPolygonSides(sides) {
             shapeContainer.innerHTML = ''; // Clear previous sides
-            const radius = 50; // Radius of the polygon
-            const angleStep = (2 * Math.PI) / sides;
+
+            const size = 150; // The size of the shape
+            const angleStep = 360 / sides; // Degrees between each side
+            const halfSize = size / 2;
 
             for (let i = 0; i < sides; i++) {
                 const side = document.createElement('div');
                 side.classList.add('side');
 
-                const angle = i * angleStep;
-                const x = radius * Math.cos(angle);
-                const y = radius * Math.sin(angle);
-
-                // Position each side based on the angle
-                side.style.transform = `rotateY(${(360 / sides) * i}deg) translateZ(50px)`;
+                // Rotate and position each side based on the angle
+                const rotationY = i * angleStep;
+                side.style.width = `${size}px`;
+                side.style.height = `${size}px`;
+                side.style.transform = `rotateY(${rotationY}deg) translateZ(${halfSize}px)`;
 
                 shapeContainer.appendChild(side);
             }
