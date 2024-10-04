@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Envelop - 3D Shape Visualization</title>
+    <title>3D Envelop Shapes</title>
     <style>
         body {
             margin: 0;
@@ -18,7 +18,7 @@
         .shape-container {
             width: 150px;
             height: 150px;
-            perspective: 800px;
+            perspective: 600px;
         }
 
         .shape {
@@ -31,8 +31,14 @@
 
         /* Shape 1: Sphere */
         .sphere {
-            background: linear-gradient(45deg, #ff7f50, #ff6347);
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, #ff7f50, #ff6347);
             border-radius: 50%;
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
         }
 
         /* Shape 2: Cube */
@@ -76,26 +82,89 @@
         .pyramid {
             width: 0;
             height: 0;
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            transform-style: preserve-3d;
+        }
+
+        .pyramid .triangle {
+            position: absolute;
+            width: 0;
+            height: 0;
             border-left: 75px solid transparent;
             border-right: 75px solid transparent;
-            border-bottom: 150px solid #ff6347;
-            transform: rotateX(45deg);
+            border-bottom: 100px solid #ff6347;
+        }
+
+        .pyramid .triangle:nth-child(1) {
+            transform: rotateY(0deg) translateZ(50px);
+        }
+
+        .pyramid .triangle:nth-child(2) {
+            transform: rotateY(90deg) translateZ(50px);
+        }
+
+        .pyramid .triangle:nth-child(3) {
+            transform: rotateY(180deg) translateZ(50px);
+        }
+
+        .pyramid .triangle:nth-child(4) {
+            transform: rotateY(-90deg) translateZ(50px);
         }
 
         /* Shape 4: Cylinder */
         .cylinder {
+            width: 100px;
+            height: 100px;
             background: #ff4500;
             border-radius: 50% / 15%;
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            transform-style: preserve-3d;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .cylinder::before,
+        .cylinder::after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: #ff6347;
+            border-radius: 50%;
+        }
+
+        .cylinder::before {
+            transform: translateZ(50px);
+        }
+
+        .cylinder::after {
+            transform: rotateX(180deg) translateZ(50px);
         }
 
         /* Shape 5: Cone */
         .cone {
             width: 0;
             height: 0;
+            position: absolute;
+            top: 25px;
+            left: 25px;
             border-left: 75px solid transparent;
             border-right: 75px solid transparent;
             border-bottom: 150px solid #ff7f50;
-            transform: rotateX(45deg);
+            transform-style: preserve-3d;
+        }
+
+        .cone::before {
+            content: '';
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, #ff7f50, #ff6347);
+            border-radius: 50%;
+            transform: translateZ(-75px);
         }
 
         @keyframes rotate {
@@ -131,7 +200,12 @@
 
     <!-- Shape 3: Pyramid -->
     <div class="shape-container">
-        <div class="shape pyramid"></div>
+        <div class="shape pyramid">
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+        </div>
     </div>
 
     <!-- Shape 4: Cylinder -->
