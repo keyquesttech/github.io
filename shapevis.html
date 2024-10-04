@@ -4,41 +4,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Curved Shape Visualization</title>
+    <title>Envelop - 3D Shape Visualization</title>
     <style>
         body {
             margin: 0;
             display: flex;
-            justify-content: center;
+            justify-content: space-around;
             align-items: center;
             height: 100vh;
             background-color: #f0f0f0;
         }
 
         .shape-container {
-            width: 200px;
-            height: 200px;
-            perspective: 600px;
+            width: 150px;
+            height: 150px;
+            perspective: 800px;
         }
 
         .shape {
             width: 100%;
             height: 100%;
-            background: linear-gradient(45deg, #ff7f50, #ff6347, #ff4500);
-            border-radius: 50%;
             position: relative;
             transform-style: preserve-3d;
-            animation: rotate 5s infinite linear;
+            animation: rotate 6s infinite linear;
         }
 
-        .shape::before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #ff4500, #ff6347, #ff7f50);
+        /* Shape 1: Sphere */
+        .sphere {
+            background: linear-gradient(45deg, #ff7f50, #ff6347);
             border-radius: 50%;
-            transform: rotateX(90deg);
+        }
+
+        /* Shape 2: Cube */
+        .cube {
+            transform: rotateX(45deg) rotateY(45deg);
+        }
+
+        .cube div {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: #ff4500;
+            border: 2px solid #ffffff;
+        }
+
+        .cube .front {
+            transform: translateZ(50px);
+        }
+
+        .cube .back {
+            transform: rotateY(180deg) translateZ(50px);
+        }
+
+        .cube .left {
+            transform: rotateY(-90deg) translateZ(50px);
+        }
+
+        .cube .right {
+            transform: rotateY(90deg) translateZ(50px);
+        }
+
+        .cube .top {
+            transform: rotateX(90deg) translateZ(50px);
+        }
+
+        .cube .bottom {
+            transform: rotateX(-90deg) translateZ(50px);
+        }
+
+        /* Shape 3: Pyramid */
+        .pyramid {
+            width: 0;
+            height: 0;
+            border-left: 75px solid transparent;
+            border-right: 75px solid transparent;
+            border-bottom: 150px solid #ff6347;
+            transform: rotateX(45deg);
+        }
+
+        /* Shape 4: Cylinder */
+        .cylinder {
+            background: #ff4500;
+            border-radius: 50% / 15%;
+        }
+
+        /* Shape 5: Cone */
+        .cone {
+            width: 0;
+            height: 0;
+            border-left: 75px solid transparent;
+            border-right: 75px solid transparent;
+            border-bottom: 150px solid #ff7f50;
+            transform: rotateX(45deg);
         }
 
         @keyframes rotate {
@@ -54,9 +111,39 @@
 </head>
 
 <body>
+
+    <!-- Shape 1: Sphere -->
     <div class="shape-container">
-        <div class="shape"></div>
+        <div class="shape sphere"></div>
     </div>
+
+    <!-- Shape 2: Cube -->
+    <div class="shape-container">
+        <div class="shape cube">
+            <div class="front"></div>
+            <div class="back"></div>
+            <div class="left"></div>
+            <div class="right"></div>
+            <div class="top"></div>
+            <div class="bottom"></div>
+        </div>
+    </div>
+
+    <!-- Shape 3: Pyramid -->
+    <div class="shape-container">
+        <div class="shape pyramid"></div>
+    </div>
+
+    <!-- Shape 4: Cylinder -->
+    <div class="shape-container">
+        <div class="shape cylinder"></div>
+    </div>
+
+    <!-- Shape 5: Cone -->
+    <div class="shape-container">
+        <div class="shape cone"></div>
+    </div>
+
 </body>
 
 </html>
