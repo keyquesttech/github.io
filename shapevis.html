@@ -4,21 +4,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Envelop Shapes</title>
+    <title>3D Box with Adjustable Vertices</title>
     <style>
         body {
             margin: 0;
             display: flex;
-            justify-content: space-around;
+            justify-content: center;
             align-items: center;
             height: 100vh;
             background-color: #f0f0f0;
+            flex-direction: column;
         }
 
         .shape-container {
             width: 150px;
             height: 150px;
             perspective: 600px;
+            margin-bottom: 20px;
         }
 
         .shape {
@@ -26,27 +28,11 @@
             height: 100%;
             position: relative;
             transform-style: preserve-3d;
+            transform: rotateX(45deg) rotateY(45deg);
             animation: rotate 6s infinite linear;
         }
 
-        /* Shape 1: Sphere */
-        .sphere {
-            width: 100px;
-            height: 100px;
-            background: radial-gradient(circle, #ff7f50, #ff6347);
-            border-radius: 50%;
-            position: absolute;
-            top: 25px;
-            left: 25px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-        }
-
-        /* Shape 2: Cube */
-        .cube {
-            transform: rotateX(45deg) rotateY(45deg);
-        }
-
-        .cube div {
+        .side {
             position: absolute;
             width: 100px;
             height: 100px;
@@ -54,169 +40,66 @@
             border: 2px solid #ffffff;
         }
 
-        .cube .front {
-            transform: translateZ(50px);
-        }
-
-        .cube .back {
-            transform: rotateY(180deg) translateZ(50px);
-        }
-
-        .cube .left {
-            transform: rotateY(-90deg) translateZ(50px);
-        }
-
-        .cube .right {
-            transform: rotateY(90deg) translateZ(50px);
-        }
-
-        .cube .top {
-            transform: rotateX(90deg) translateZ(50px);
-        }
-
-        .cube .bottom {
-            transform: rotateX(-90deg) translateZ(50px);
-        }
-
-        /* Shape 3: Pyramid */
-        .pyramid {
-            width: 0;
-            height: 0;
-            position: absolute;
-            top: 25px;
-            left: 25px;
-            transform-style: preserve-3d;
-        }
-
-        .pyramid .triangle {
-            position: absolute;
-            width: 0;
-            height: 0;
-            border-left: 75px solid transparent;
-            border-right: 75px solid transparent;
-            border-bottom: 100px solid #ff6347;
-        }
-
-        .pyramid .triangle:nth-child(1) {
-            transform: rotateY(0deg) translateZ(50px);
-        }
-
-        .pyramid .triangle:nth-child(2) {
-            transform: rotateY(90deg) translateZ(50px);
-        }
-
-        .pyramid .triangle:nth-child(3) {
-            transform: rotateY(180deg) translateZ(50px);
-        }
-
-        .pyramid .triangle:nth-child(4) {
-            transform: rotateY(-90deg) translateZ(50px);
-        }
-
-        /* Shape 4: Cylinder */
-        .cylinder {
-            width: 100px;
-            height: 100px;
-            background: #ff4500;
-            border-radius: 50% / 15%;
-            position: absolute;
-            top: 25px;
-            left: 25px;
-            transform-style: preserve-3d;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .cylinder::before,
-        .cylinder::after {
-            content: '';
-            position: absolute;
-            width: 100px;
-            height: 100px;
-            background: #ff6347;
-            border-radius: 50%;
-        }
-
-        .cylinder::before {
-            transform: translateZ(50px);
-        }
-
-        .cylinder::after {
-            transform: rotateX(180deg) translateZ(50px);
-        }
-
-        /* Shape 5: Cone */
-        .cone {
-            width: 0;
-            height: 0;
-            position: absolute;
-            top: 25px;
-            left: 25px;
-            border-left: 75px solid transparent;
-            border-right: 75px solid transparent;
-            border-bottom: 150px solid #ff7f50;
-            transform-style: preserve-3d;
-        }
-
-        .cone::before {
-            content: '';
-            position: absolute;
-            width: 150px;
-            height: 150px;
-            background: radial-gradient(circle, #ff7f50, #ff6347);
-            border-radius: 50%;
-            transform: translateZ(-75px);
-        }
-
         @keyframes rotate {
             from {
-                transform: rotateX(0deg) rotateY(0deg);
+                transform: rotateX(45deg) rotateY(45deg);
             }
 
             to {
-                transform: rotateX(360deg) rotateY(360deg);
+                transform: rotateX(405deg) rotateY(405deg);
             }
+        }
+
+        input[type="range"] {
+            width: 300px;
         }
     </style>
 </head>
 
 <body>
 
-    <!-- Shape 1: Sphere -->
     <div class="shape-container">
-        <div class="shape sphere"></div>
+        <div class="shape" id="shape"></div>
     </div>
 
-    <!-- Shape 2: Cube -->
-    <div class="shape-container">
-        <div class="shape cube">
-            <div class="front"></div>
-            <div class="back"></div>
-            <div class="left"></div>
-            <div class="right"></div>
-            <div class="top"></div>
-            <div class="bottom"></div>
-        </div>
-    </div>
+    <label for="vertices">Number of sides: <span id="vertexCount">4</span></label>
+    <input type="range" id="vertices" min="4" max="12" value="4" step="1">
 
-    <!-- Shape 3: Pyramid -->
-    <div class="shape-container">
-        <div class="shape pyramid">
-            <div class="triangle"></div>
-            <div class="triangle"></div>
-            <div class="triangle"></div>
-            <div class="triangle"></div>
-        </div>
-    </div>
+    <script>
+        const shapeContainer = document.getElementById('shape');
+        const verticesSlider = document.getElementById('vertices');
+        const vertexCountLabel = document.getElementById('vertexCount');
 
-    <!-- Shape 4: Cylinder -->
-    <div class="shape-container">
-        <div class="shape cylinder"></div>
-    </div>
+        function createPolygonSides(sides) {
+            shapeContainer.innerHTML = ''; // Clear previous sides
+            const radius = 50; // Radius of the polygon
+            const angleStep = (2 * Math.PI) / sides;
 
-    <!-- Shape 5: Cone -->
-    <div class="shape-container">
-        <div class="shape cone"></div>
-    </div>
+            for (let i = 0; i < sides; i++) {
+                const side = document.createElement('div');
+                side.classList.add('side');
+
+                const angle = i * angleStep;
+                const x = radius * Math.cos(angle);
+                const y = radius * Math.sin(angle);
+
+                // Position each side based on the angle
+                side.style.transform = `rotateY(${(360 / sides) * i}deg) translateZ(50px)`;
+
+                shapeContainer.appendChild(side);
+            }
+        }
+
+        // Update the box based on the number of sides from the slider
+        verticesSlider.addEventListener('input', function () {
+            const sides = parseInt(verticesSlider.value);
+            vertexCountLabel.textContent = sides;
+            createPolygonSides(sides);
+        });
+
+        // Initialize the box with 4 sides
+        createPolygonSides(4);
+    </script>
 
 </body>
 
