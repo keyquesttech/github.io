@@ -4,91 +4,226 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Group Pairing Algorithm</title>
+    <title>Group Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin: 5px 0;
+        }
+
+        select,
+        input {
+            margin-bottom: 10px;
+            width: 100%;
+        }
+
+        button {
+            display: block;
+            margin-top: 10px;
+        }
+
+        .groups {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 
 <body>
-    <h1>Group Pairing Algorithm</h1>
-
+    <h1>Group Generator</h1>
     <form id="participant-form">
-        <h2>Add Participant</h2>
         <label for="name">Name:</label>
-        <input type="text" id="name" required><br>
+        <input type="text" id="name" required>
 
         <label for="gender">Gender:</label>
         <select id="gender" required>
+            <option value="" disabled selected>-- Select Gender --</option>
             <option value="Male">Male</option>
             <option value="Female">Female</option>
             <option value="Other">Other</option>
-        </select><br>
+        </select>
 
         <label for="mbti">MBTI Type:</label>
-        <input type="text" id="mbti" required><br>
+        <select id="mbti" required>
+            <option value="" disabled selected>-- Select MBTI Type --</option>
+            <optgroup label="IS">
+                <option value="ISTJ">ISTJ</option>
+                <option value="ISFJ">ISFJ</option>
+                <option value="ISTP">ISTP</option>
+                <option value="ISFP">ISFP</option>
+            </optgroup>
+            <optgroup label="IN">
+                <option value="INFJ">INFJ</option>
+                <option value="INTJ">INTJ</option>
+                <option value="INFP">INFP</option>
+                <option value="INTP">INTP</option>
+            </optgroup>
+            <optgroup label="ES">
+                <option value="ESTP">ESTP</option>
+                <option value="ESFP">ESFP</option>
+                <option value="ESTJ">ESTJ</option>
+                <option value="ESFJ">ESFJ</option>
+            </optgroup>
+            <optgroup label="EN">
+                <option value="ENFP">ENFP</option>
+                <option value="ENTP">ENTP</option>
+                <option value="ENFJ">ENFJ</option>
+                <option value="ENTJ">ENTJ</option>
+            </optgroup>
+        </select>
+
+        <label for="archetype">Archetype:</label>
+        <select id="archetype" required>
+            <option value="" disabled selected>-- Select an Archetype Subgroup --</option>
+            <optgroup label="Leaders">
+                <option value="Commander">Commander</option>
+                <option value="Shaper">Shaper</option>
+                <option value="Quiet Leader">Quiet Leader</option>
+            </optgroup>
+            <optgroup label="Advocates">
+                <option value="Inspirer">Inspirer</option>
+                <option value="Campaigner">Campaigner</option>
+                <option value="Coach">Coach</option>
+            </optgroup>
+            <optgroup label="Enthusiasts">
+                <option value="Promoter">Promoter</option>
+                <option value="Impresario">Impresario</option>
+                <option value="Entertainer">Entertainer</option>
+            </optgroup>
+            <optgroup label="Givers">
+                <option value="Peacekeeper">Peacekeeper</option>
+                <option value="Problem Solver">Problem Solver</option>
+                <option value="Helper">Helper</option>
+            </optgroup>
+            <optgroup label="Architects">
+                <option value="Strategist">Strategist</option>
+                <option value="Planner">Planner</option>
+                <option value="Orchestrator">Orchestrator</option>
+            </optgroup>
+            <optgroup label="Producers">
+                <option value="Implementer">Implementer</option>
+                <option value="Investigator">Investigator</option>
+                <option value="Technician">Technician</option>
+            </optgroup>
+            <optgroup label="Creators">
+                <option value="Adventurer">Adventurer</option>
+                <option value="Artisan">Artisan</option>
+                <option value="Inventor">Inventor</option>
+            </optgroup>
+            <optgroup label="Seekers">
+                <option value="Explorer">Explorer</option>
+                <option value="Thinker">Thinker</option>
+                <option value="Growth Seeker">Growth Seeker</option>
+            </optgroup>
+            <optgroup label="Fighters">
+                <option value="Protector">Protector</option>
+                <option value="Enforcer">Enforcer</option>
+                <option value="Critic">Critic</option>
+            </optgroup>
+            <optgroup label="Individualist">
+                <option value="Individualist">Individualist</option>
+            </optgroup>
+        </select>
 
         <label for="english">English Proficiency (1-9):</label>
-        <input type="number" id="english" min="1" max="9" required><br>
+        <input type="range" id="english" min="1" max="9" value="5" step="1" required>
+        <span id="english-value">5</span><br>
 
         <label for="leadership">Leadership (1-9):</label>
-        <input type="number" id="leadership" min="1" max="9" required><br>
+        <input type="range" id="leadership" min="1" max="9" value="5" step="1" required>
+        <span id="leadership-value">5</span><br>
 
         <label for="introversion">Introversion/Extroversion (1-9):</label>
-        <input type="number" id="introversion" min="1" max="9" required><br>
+        <input type="range" id="introversion" min="1" max="9" value="5" step="1" required>
+        <span id="introversion-value">5</span><br>
 
-        <button type="button" onclick="addParticipant()">Add Participant</button>
+        <button type="button" id="add-participant">Add Participant</button>
     </form>
 
-    <h2>Participants</h2>
-    <ul id="participant-list"></ul>
+    <div class="participants">
+        <h2>Participants</h2>
+        <ul id="participant-list"></ul>
+    </div>
 
-    <h2>Generate Groups</h2>
-    <button onclick="generateGroups()">Generate Groups</button>
-    <div id="groups-output"></div>
+    <button id="generate-groups">Generate Groups</button>
+    <div id="groups-output" class="groups"></div>
 
     <script>
         const participants = [];
 
-        function addParticipant() {
+        document.getElementById('english').addEventListener('input', function () {
+            document.getElementById('english-value').textContent = this.value;
+        });
+        document.getElementById('leadership').addEventListener('input', function () {
+            document.getElementById('leadership-value').textContent = this.value;
+        });
+        document.getElementById('introversion').addEventListener('input', function () {
+            document.getElementById('introversion-value').textContent = this.value;
+        });
+
+        document.getElementById('add-participant').addEventListener('click', () => {
             const name = document.getElementById('name').value;
             const gender = document.getElementById('gender').value;
             const mbti = document.getElementById('mbti').value;
+            const archetype = document.getElementById('archetype').value;
             const english = parseInt(document.getElementById('english').value, 10);
             const leadership = parseInt(document.getElementById('leadership').value, 10);
             const introversion = parseInt(document.getElementById('introversion').value, 10);
 
-            participants.push({ name, gender, mbti, english, leadership, introversion });
-
-            const participantList = document.getElementById('participant-list');
-            const listItem = document.createElement('li');
-            listItem.textContent = `${name} (${gender}, MBTI: ${mbti}, English: ${english}, Leadership: ${leadership}, Introversion: ${introversion})`;
-            participantList.appendChild(listItem);
-
-            // Clear form inputs
-            document.getElementById('participant-form').reset();
-        }
-
-        function generateGroups() {
-            const groups = [];
-            const groupSize = Math.ceil(participants.length / 3); // Adjust group size as needed
-
-            // Step 1: Sort by Leadership
-            const sortedByLeadership = [...participants].sort((a, b) => b.leadership - a.leadership);
-
-            // Step 2: Distribute into groups
-            for (let i = 0; i < sortedByLeadership.length; i++) {
-                const groupIndex = i % groupSize;
-                if (!groups[groupIndex]) groups[groupIndex] = [];
-                groups[groupIndex].push(sortedByLeadership[i]);
+            if (name && gender && mbti && archetype) {
+                participants.push({ name, gender, mbti, archetype, english, leadership, introversion });
+                document.getElementById('participant-list').innerHTML = participants.map(
+                    p => `<li>${p.name} (${p.gender}, MBTI: ${p.mbti}, Archetype: ${p.archetype})</li>`
+                ).join('');
             }
+        });
 
-            // Step 3: Display results
-            const outputDiv = document.getElementById('groups-output');
-            outputDiv.innerHTML = '<h3>Generated Groups</h3>';
-            groups.forEach((group, index) => {
-                const groupDiv = document.createElement('div');
-                groupDiv.innerHTML = `<h4>Group ${index + 1}</h4><ul>${group.map(member => `<li>${member.name} (${member.gender}, MBTI: ${member.mbti})</li>`).join('')}</ul>`;
-                outputDiv.appendChild(groupDiv);
+        document.getElementById('generate-groups').addEventListener('click', () => {
+            const totalParticipants = participants.length;
+            let numGroups = Math.ceil(totalParticipants / 7);  // Maximum group size is 7
+            let groups = Array.from({ length: numGroups }, () => []);
+
+            // Sort participants by their total score (english + leadership + introversion)
+            participants.sort((a, b) => {
+                const scoreA = a.english + a.leadership + a.introversion;
+                const scoreB = b.english + b.leadership + b.introversion;
+                return scoreB - scoreA;  // descending order
             });
-        }
+
+            // Distribute participants into groups
+            let groupIndex = 0;
+            participants.forEach(participant => {
+                groups[groupIndex].push(participant);
+                groupIndex = (groupIndex + 1) % numGroups;
+            });
+
+            // Ensure group size balance
+            groups = groups.map(group => {
+                if (group.length < 2) {
+                    return [];
+                }
+                return group;
+            });
+
+            document.getElementById('groups-output').innerHTML = `
+                <h2>Generated Groups</h2>
+                <ul>
+                    ${groups.map(group => {
+                return group.length > 0
+                    ? `<li>Group: ${group.map(p => p.name).join(', ')}</li>`
+                    : '';
+            }).join('')}
+                </ul>
+            `;
+        });
     </script>
 </body>
 
