@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group Pairing Algorithm</title>
+</head>
+
+<body>
+    <h1>Group Pairing Algorithm</h1>
+
+    <form id="participant-form">
+        <h2>Add Participant</h2>
+        <label for="name">Name:</label>
+        <input type="text" id="name" required><br>
+
+        <label for="gender">Gender:</label>
+        <select id="gender" required>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+        </select><br>
+
+        <label for="mbti">MBTI Type:</label>
+        <input type="text" id="mbti" required><br>
+
+        <label for="english">English Proficiency (1-9):</label>
+        <input type="number" id="english" min="1" max="9" required><br>
+
+        <label for="leadership">Leadership (1-9):</label>
+        <input type="number" id="leadership" min="1" max="9" required><br>
+
+        <label for="introversion">Introversion/Extroversion (1-9):</label>
+        <input type="number" id="introversion" min="1" max="9" required><br>
+
+        <button type="button" onclick="addParticipant()">Add Participant</button>
+    </form>
+
+    <h2>Participants</h2>
+    <ul id="participant-list"></ul>
+
+    <h2>Generate Groups</h2>
+    <button onclick="generateGroups()">Generate Groups</button>
+    <div id="groups-output"></div>
+
+    <script>
+        const participants = [];
+
+        function addParticipant() {
+            const name = document.getElementById('name').value;
+            const gender = document.getElementById('gender').value;
+            const mbti = document.getElementById('mbti').value;
+            const english = parseInt(document.getElementById('english').value, 10);
+            const leadership = parseInt(document.getElementById('leadership').value, 10);
+            const introversion = parseInt(document.getElementById('introversion').value, 10);
+
+            participants.push({ name, gender, mbti, english, leadership, introversion });
+
+            const participantList = document.getElementById('participant-list');
+            const listItem = document.createElement('li');
+            listItem.textContent = `${name} (${gender}, MBTI: ${mbti}, English: ${english}, Leadership: ${leadership}, Introversion: ${introversion})`;
+            participantList.appendChild(listItem);
+
+            // Clear form inputs
+            document.getElementById('participant-form').reset();
+        }
+
+        function generateGroups() {
+            const groups = [];
+            const groupSize = Math.ceil(participants.length / 3); // Adjust group size as needed
+
+            // Step 1: Sort by Leadership
+            const sortedByLeadership = [...participants].sort((a, b) => b.leadership - a.leadership);
+
+            // Step 2: Distribute into groups
+            for (let i = 0; i < sortedByLeadership.length; i++) {
+                const groupIndex = i % groupSize;
+                if (!groups[groupIndex]) groups[groupIndex] = [];
+                groups[groupIndex].push(sortedByLeadership[i]);
+            }
+
+            // Step 3: Display results
+            const outputDiv = document.getElementById('groups-output');
+            outputDiv.innerHTML = '<h3>Generated Groups</h3>';
+            groups.forEach((group, index) => {
+                const groupDiv = document.createElement('div');
+                groupDiv.innerHTML = `<h4>Group ${index + 1}</h4><ul>${group.map(member => `<li>${member.name} (${member.gender}, MBTI: ${member.mbti})</li>`).join('')}</ul>`;
+                outputDiv.appendChild(groupDiv);
+            });
+        }
+    </script>
+</body>
+
+</html>
