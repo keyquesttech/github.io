@@ -188,41 +188,31 @@
 
         document.getElementById('generate-groups').addEventListener('click', () => {
             const totalParticipants = participants.length;
-            let numGroups = Math.ceil(totalParticipants / 7);  // Maximum group size is 7
+            if (totalParticipants < 4) {
+                alert("You need at least 4 participants to generate groups.");
+                return;
+            }
+
+            // Calculate the number of groups, with at least 2 participants per group and no single participant groups
+            let numGroups = Math.ceil(totalParticipants / 2);
+            if (numGroups > totalParticipants / 2) {
+                numGroups = totalParticipants / 2;
+            }
+
             let groups = Array.from({ length: numGroups }, () => []);
 
-            // Sort participants by their total score (english + leadership + introversion)
-            participants.sort((a, b) => {
-                const scoreA = a.english + a.leadership + a.introversion;
-                const scoreB = b.english + b.leadership + b.introversion;
-                return scoreB - scoreA;  // descending order
-            });
+            // Shuffle participants randomly
+            participants.sort(() => Math.random() - 0.5);
 
             // Distribute participants into groups
-            let groupIndex = 0;
-            participants.forEach(participant => {
-                groups[groupIndex].push(participant);
-                groupIndex = (groupIndex + 1) % numGroups;
+            participants.forEach((participant, index) => {
+                groups[index % numGroups].push(participant);
             });
 
-            // Ensure group size balance
-            groups = groups.map(group => {
-                if (group.length < 2) {
-                    return [];
-                }
-                return group;
-            });
-
-            document.getElementById('groups-output').innerHTML = `
-                <h2>Generated Groups</h2>
-                <ul>
-                    ${groups.map(group => {
-                return group.length > 0
-                    ? `<li>Group: ${group.map(p => p.name).join(', ')}</li>`
-                    : '';
-            }).join('')}
-                </ul>
-            `;
+            // Output the groups
+            document.getElementById('groups-output').innerHTML = groups.map((group, i) => {
+                return `<h3>Group ${i + 1}</h3><ul>` + group.map(p => `<li>${p.name} (${p.gender}, MBTI: ${p.mbti}, Archetype: ${p.archetype})</li>`).join('') + `</ul>`;
+            }).join('');
         });
     </script>
 </body>
